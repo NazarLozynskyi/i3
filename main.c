@@ -140,14 +140,14 @@ void *controller(void *args)
     {
         //Rule 1
         pthread_mutex_lock(&mutexInputsGroup1);
-        if(ioState.inputPort1 & ioState.inputPort2 & !tempRule1)
+        if(ioState.inputPort1 && ioState.inputPort2 && !tempRule1)
         {
             pthread_t thread_id1, thread_id2;
             pthread_create(&thread_id1, NULL, toggleOutput, &(ioState.outputPort1));
             pthread_create(&thread_id2, NULL, toggleOutput, &(ioState.outputPort2));
             tempRule1 = 1;
         }
-        if(!ioState.inputPort1 & !ioState.inputPort2 & tempRule1)
+        if(!ioState.inputPort1 && !ioState.inputPort2 && tempRule1)
         {
             pthread_t thread_id1, thread_id2;
             pthread_create(&thread_id1, NULL, toggleOutput, &(ioState.outputPort1));
@@ -158,7 +158,7 @@ void *controller(void *args)
         //Rule 2
         if((ioState.inputPort3 + ioState.inputPort4 + ioState.inputPort5
             + ioState.inputPort6 + ioState.inputPort7 + ioState.inputPort8) > 3
-           & !tempRule2)
+           && !tempRule2)
         {
             pthread_t thread_id[6];
             pthread_create(&thread_id[0], NULL, setOutput, &(ioState.outputPort3));
@@ -171,7 +171,7 @@ void *controller(void *args)
         }
         if((ioState.inputPort3 + ioState.inputPort4 + ioState.inputPort5
             + ioState.inputPort6 + ioState.inputPort7 + ioState.inputPort8) <= 3
-           & tempRule2)
+           && tempRule2)
         {
             pthread_t thread_id[6];
             pthread_create(&thread_id[0], NULL, setOutput, &(ioState.outputPort3));
@@ -188,13 +188,13 @@ void *controller(void *args)
         //Rule 3
         pthread_mutex_lock(&mutexTempSensors);
         pthread_mutex_lock(&mutexInputsGroup2);
-        if(ioState.inputPort9 & ioState.tempSensor1 > 127 & !tempRule3)
+        if(ioState.inputPort9 && ioState.tempSensor1 > 127 && !tempRule3)
         {
             pthread_t thread_id1;
             pthread_create(&thread_id1, NULL, setOutput, &(ioState.outputPort9));
             tempRule3 = 1;
         }
-        if(ioState.tempSensor1 <= 127 & tempRule3)
+        if(ioState.tempSensor1 <= 127 && tempRule3)
         {
             pthread_t thread_id1;
             pthread_create(&thread_id1, NULL, resetOutput, &(ioState.outputPort9));
@@ -202,13 +202,13 @@ void *controller(void *args)
         }
 
         //Rule 4
-        if(ioState.inputPort9 & ioState.inputPort10 & ioState.tempSensor2 > 127 & !tempRule4)
+        if(ioState.inputPort9 && ioState.inputPort10 && ioState.tempSensor2 > 127 && !tempRule4)
         {
             pthread_t thread_id1;
             pthread_create(&thread_id1, NULL, setOutput, &(ioState.outputPort10));
             tempRule4 = 1;
         }
-        if(ioState.tempSensor2 <= 127 & tempRule4)
+        if(ioState.tempSensor2 <= 127 && tempRule4)
         {
             pthread_t thread_id1;
             pthread_create(&thread_id1, NULL, resetOutput, &(ioState.outputPort10));
