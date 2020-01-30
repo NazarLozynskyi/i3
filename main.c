@@ -24,7 +24,7 @@ void *randomizeInputPorts(void *args)
         ioState.inputPort7 = randomNumber&(1<<6);
         ioState.inputPort8 = randomNumber&(1<<7);
         pthread_mutex_unlock(&mutexInputsGroup1);
-        
+
         pthread_mutex_lock(&mutexInputsGroup2);
         ioState.inputPort9 = randomNumber&(1<<8);
         ioState.inputPort10 = randomNumber&(1<<9);
@@ -64,35 +64,43 @@ void *printState(void *args)
     while(1)
     {
         pthread_mutex_lock(&mutexInputsGroup1);
-        printf("%d",ioState.inputPort1);
-        printf("\t%u\n",ioState.outputPort1);
-        printf("%d",ioState.inputPort2);
-        printf("\t%u\n",ioState.outputPort2);
-        printf("\n");
-        printf("%d",ioState.inputPort3);
-        printf("\t%u\n",ioState.outputPort3);
-        printf("%d",ioState.inputPort4);
-        printf("\t%u\n",ioState.outputPort4);
-        printf("%d",ioState.inputPort5);
-        printf("\t%u\n",ioState.outputPort5);
-        printf("%d",ioState.inputPort6);
-        printf("\t%u\n",ioState.outputPort6);
-        printf("%d",ioState.inputPort7);
-        printf("\t%u\n",ioState.outputPort7);
-        printf("%d",ioState.inputPort8);
-        printf("\t%u\n",ioState.outputPort8);
+        printf("[IN01] %d",ioState.inputPort1);
+        printf("\t%u",ioState.outputPort1);
+        printf(" [OUT01]\n");
+        printf("[IN02] %d",ioState.inputPort2);
+        printf("\t%u",ioState.outputPort2);
+        printf(" [OUT02]\n\n");
+        printf("[IN03] %d",ioState.inputPort3);
+        printf("\t%u",ioState.outputPort3);
+        printf(" [OUT03]\n");
+        printf("[IN04] %d",ioState.inputPort4);
+        printf("\t%u",ioState.outputPort4);
+        printf(" [OUT04]\n");
+        printf("[IN05] %d",ioState.inputPort5);
+        printf("\t%u",ioState.outputPort5);
+        printf(" [OUT05]\n");
+        printf("[IN06] %d",ioState.inputPort6);
+        printf("\t%u",ioState.outputPort6);
+        printf(" [OUT06]\n");
+        printf("[IN07] %d",ioState.inputPort7);
+        printf("\t%u",ioState.outputPort7);
+        printf(" [OUT07]\n");
+        printf("[IN08] %d",ioState.inputPort8);
+        printf("\t%u",ioState.outputPort8);
+        printf(" [OUT08]\n");
         printf("\n");
         pthread_mutex_unlock(&mutexInputsGroup1);
 
         pthread_mutex_lock(&mutexInputsGroup2);
         pthread_mutex_lock(&mutexTempSensors);
-        printf("%d",ioState.inputPort9);
-        printf("  %d",ioState.tempSensor1);
-        printf("\t%u\n",ioState.outputPort9);
-
-        printf("%d",ioState.inputPort10);
-        printf("  %d",ioState.tempSensor2);
-        printf("\t%u\n",ioState.outputPort10);
+        printf("[IN09] %d",ioState.inputPort9);
+        printf("\t%u",ioState.outputPort9);
+        printf(" [OUT09]\n");
+        printf("[IN10] %d",ioState.inputPort10);
+        printf("\t%u",ioState.outputPort10);
+        printf(" [OUT10]\n\n");
+        printf("[SENS1] %d",ioState.tempSensor1);
+        printf("\n[SENS2] %d",ioState.tempSensor2);
         pthread_mutex_unlock(&mutexInputsGroup2);
         pthread_mutex_unlock(&mutexTempSensors);
         printf("\n\n\n\n");
